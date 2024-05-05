@@ -43,4 +43,23 @@ class PageController extends Controller
         ];
         return view("komentar")->with("with", $with);;
     }
+
+    public function post_komentar(Request $request) {
+        $validator = Validator::make($request->all(), [
+            "is_komen" => "string|required"
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $newKomen = new Komen;
+        $newKomen->create([
+            "komen" => $request->isi_komen
+        ]);
+
+        if($res) {
+            return redirect()->back();
+        }
+    }
 }
