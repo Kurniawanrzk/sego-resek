@@ -13,7 +13,7 @@ class PageController extends Controller
         $with = [
             "menu_makanan" => Menu::where("tipe_menu", "makanan")->offset(0)->limit(3)->get(),
             "menu_minuman" => Menu::where("tipe_menu", "minuman")->offset(0)->limit(3)->get(),
-            "komen" => Komen::offset(0)->limit(6)->get()
+            "komen" => Komen::offset(0)->limit(2)->get()
         ];
         return view("home")->with("with", $with);
     }
@@ -58,7 +58,7 @@ class PageController extends Controller
         ]);
 
         if($res) {
-            return redirect()->back()->with("success","Komentar berhasil di tambahkan!");;
+            return redirect()->route("komentar")->with("success","Komentar berhasil di tambahkan!");;
         }
     }
 }

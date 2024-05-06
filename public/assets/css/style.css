@@ -147,8 +147,19 @@ footer {
     gap: 140px;
     justify-content: center;
 }
+.komentar-komentar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
 
 @media only screen and (max-width: 600px) {
+    .komentar-komentar {
+        display: grid;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
     .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
     display: none;
     }
@@ -189,6 +200,11 @@ footer {
 }
 
 @media only screen and (min-width: 600px) {
+    .komentar-komentar {
+        display: grid;
+        justify-content: center;
+        margin-top: 30px;
+    }
     .container-gmaps {
         display: grid;
         gap: 10px;
@@ -229,6 +245,11 @@ footer {
 }
 
 @media only screen and (min-width: 768px) {
+    .komentar-komentar {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
     .container-gmaps {
         display: flex;
         gap: 10px;

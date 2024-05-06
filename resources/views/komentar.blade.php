@@ -7,7 +7,8 @@ class="insert-komentar">
 </div>
 <div class="container-komen mt-3 p-5"  id="komen">
     <h4 align="center">Komentar-Komentar pengunjung website</h4>
-    <button class="btn btn-light ms-1">Tambah Komentar</button>
+    <a href="/#kirimkomentar">    <button class="btn btn-light ms-1">Tambah Komentar</button>
+    </a>
     <div>
         @foreach ($with["komentar"] as $item )
             <div class="bg-light p-3 rounded shadow mt-2" style="min-width:100%;height:fit-content">

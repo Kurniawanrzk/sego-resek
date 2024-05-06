@@ -69,30 +69,47 @@
 
     </div>
 </div>
-<div class="container-komen mt-5 p-5" style="background-color:#fcf5e1;height:fit-content;" id="komen">
+<div id="kirimkomentar" class="container-komen mt-5 p-5" style="background-color:#fcf5e1;height:fit-content;" id="komen">
     <h4 align="center">Komentar-Komentar pengunjung website</h4>
 
-    <div class="d-flex" style="">
+    <div class="komentar-komentar">
         <div style="min-width: 40%">
             <div style="width: 350px;margin-bottom:10px;color:grey">
                 <i >Anda dapat mengirimkan komentar/saran secara Anonymouse ke website sego resek. Silahkan scan barcode yang anda dapatkan dari struk pembelian</i>
             </div>
-            <div class="d-flex gap-1">
-                <button  data-bs-toggle="modal" id="open-camera" data-bs-target="#exampleModal" class="btn btn-light">Kilk Untuk Scan Barcode</button>
-                <button style="display: none" id="scan-ulang" class="btn btn-light">Scan Ulang</button>
+            <div class="d-flex gap-1" >
+                <button  data-bs-toggle="modal" id="open-camera" data-bs-target="#exampleModal" class="shadow btn btn-light">Kilk Untuk Scan Barcode</button>
+                <button style="display: none" id="scan-ulang" class="btn btn-light shadow">Scan Ulang</button>
             </div>
                 <form id="form_komentar" method="POST" action="{{Route('post_komentar')}}">
                 @csrf
                 <input name="token_komentar" id="token_komentar" type="hidden">
                 <span id="info"></span>
                 <br>
-                <textarea placeholder="masukkan komentar anda" name="isi_komen" class="form-control" id="" cols="30" rows="5"></textarea>
+                <textarea placeholder="masukkan komentar anda" name="isi_komen" class="form-control shadow" id="" cols="30" rows="5"></textarea>
                 <br>
-                <button type="submit" class="btn btn-light">Kirim</button>
+                <button type="submit" class="btn btn-light shadow">Kirim Komentar</button>
                 </form>
             </div>
         <div>
-
+        <div>
+            <div class="bg-light shadow rounded ">
+                <p class="p-3">Sego resek memang juara!!, makanan nya murah tetapi rasanya tetap berkualitas</p>
+                <div class="shadow rounded" style="background-color: rgb(224, 223, 223)">
+                    <p class="p-3">Terima kasih atas feedback positif nya!<br><i style="color: grey">By Admin</i></p>
+                </div>
+            </div>
+            <br>
+            <div class="bg-light shadow rounded ">
+                <p class="p-3">Nasi goreng e kane poll!!</p>
+                <div class="shadow rounded" style="background-color: rgb(224, 223, 223)">
+                    <p class="p-3">Terima kasih!, kami ikut senang mendengar itu<br><i style="color: grey">By Admin</i></p>
+                </div>
+            </div>
+            <div>
+                <a href="{{Route("komentar")}}"><button class="btn btn-light">Lihat Komentar Lain</button></a>
+            </div>
+        </div>
         </div>
     </div>
 </div>
@@ -101,75 +118,57 @@
         <button><a href="about">MORE ABOUT US</a></button>
     </div>
 </div>
-<video></video>
-
 <script src="assets/js/qr-scanner/qr-scanner.umd.min.js"></script>
 <script>
     const video = document.getElementById('qr-video');
-const videoContainer = document.getElementById('video-container');
-const camQrResult = document.getElementById('cam-qr-result');
-const btnOpenCamera = document.getElementById('open-camera');
-const scanUlang = document.getElementById('scan-ulang');
-const info = document.getElementById('info');
-const token_komentar = document.getElementById('token_komentar');
-let qrDetected = false; // Variable to track if QR code is detected
+    const camQrResult = document.getElementById('cam-qr-result');
+    const btnOpenCamera = document.getElementById('open-camera');
+    const scanUlang = document.getElementById('scan-ulang');
+    const info = document.getElementById('info');
+    const token_komentar = document.getElementById('token_komentar');
+    let qrDetected = false; // Variable to track if QR code is detected
 
-function setResult(label, result) {
-    console.log(result.data);
-    label.textContent = result.data;
-    token_komentar.value = result.data;
-    label.style.color = 'teal';
-    clearTimeout(label.highlightTimeout);
-    label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
-    qrDetected = true; // Set to true once QR code is detected
-    scanner.stop(); // Stop scanning once QR code is detected
-    btnOpenCamera.className = 'btn btn-success'
-    btnOpenCamera.innerText = "Barcode berhasil terscan!"
-    document.getElementById("close-modal-camera").click()
-    btnOpenCamera.disabled = true
-    info.innerText = "Silahkan masukkan isi komen dan submit"
-    info.style.color = "gray"
-    scanUlang.style.display = "block"
-}
-
-const scanner = new QrScanner(video, result => {
-    if (!qrDetected) { // Only set result if QR code not detected yet
-        setResult(camQrResult, result);
+    function setResult(result) {
+        console.log(result.data);
+        token_komentar.value = result.data;
+        qrDetected = true; // Set to true once QR code is detected
+        scanner.stop(); // Stop scanning once QR code is detected
+        btnOpenCamera.className = 'btn btn-success';
+        btnOpenCamera.innerText = "Barcode berhasil terscan!";
+        document.getElementById("close-modal-camera").click();
+        btnOpenCamera.disabled = true;
+        info.innerText = "Silahkan masukkan isi komen dan submit";
+        info.style.color = "gray";
+        scanUlang.style.display = "block";
     }
-}, {
-    onDecodeError: error => {
-        if (!qrDetected) { // Only display error if QR code not detected yet
-            camQrResult.textContent = error;
-            camQrResult.style.color = 'inherit';
+
+    const scanner = new QrScanner(video, result => {
+        if (!qrDetected) { // Only set result if QR code not detected yet
+            setResult(result);
         }
-    },
-    highlightScanRegion: true,
-    highlightCodeOutline: true,
-});
+    }, {
+        onDecodeError: error => {
+            if (!qrDetected) { // Only display error if QR code not detected yet
+                // Handle error here
+            }
+        },
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
+    });
 
+    btnOpenCamera.onclick = function() {
+        scanner.start();
+    };
 
-
-btnOpenCamera.onclick = function() {
-    scanner.start().then(() => {
-    QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
-        const option = document.createElement('option');
-        option.value = camera.id;
-        option.text = camera.label;
-        camList.add(option);
-    }));
-});
-}
-
-scanUlang.onclick = function() {
-    btnOpenCamera.disabled = false
-    btnOpenCamera.className = 'btn btn-light'
-    btnOpenCamera.innerText = "Klik Untuk Scan Barcode"
-    scanUlang.style.display = "none"
-    qrDetected = false;
-
-}
-
+    scanUlang.onclick = function() {
+        btnOpenCamera.disabled = false;
+        btnOpenCamera.className = 'btn btn-light';
+        btnOpenCamera.innerText = "Klik Untuk Scan Barcode";
+        scanUlang.style.display = "none";
+        qrDetected = false;
+    };
 
 </script>
+
 @endsection
 
