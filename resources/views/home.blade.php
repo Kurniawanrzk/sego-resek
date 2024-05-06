@@ -1,10 +1,10 @@
 @extends('layouts.master')
 @section('content')
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -14,7 +14,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" id="close-modal-camera" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
@@ -33,7 +32,7 @@
    <div>
     <div class="">
             <h4 align="center">Makanan</h4>
-            <div class="row mt-3 d-flex">
+            <div class="menu-makanan">
                 @foreach ( $with["menu_makanan"] as $makanan)
                 <div class="col-lg-4 mb-4">
                     <div class="card p-2" style="width: 18rem;">
@@ -48,7 +47,7 @@
 
         </div>
         <h4 align="center">Minuman</h4>
-        <div class="row mt-3 d-flex">
+        <div class="menu-minuman">
             @foreach ( $with["menu_minuman"] as $makanan)
             <div class="col-lg-4 mb-4">
                 <div class="card p-2" style="width: 18rem;">
@@ -60,10 +59,9 @@
                 </div>
             </div>
             @endforeach
-
-            <center><a href="{{Route("menu")}}"><button class="btn btn-light" style="font-size:30px">LIHAT MENU LAIN</button></a></center>
-
     </div>
+    <center><a href="{{Route("menu")}}"><button class="btn btn-light" style="font-size:30px">LIHAT MENU LAIN</button></a></center>
+
     </div>
    </div>
 
@@ -73,18 +71,26 @@
 </div>
 <div class="container-komen mt-5 p-5" style="background-color:#fcf5e1;height:fit-content;" id="komen">
     <h4 align="center">Komentar-Komentar pengunjung website</h4>
+
     <div class="d-flex" style="">
         <div style="min-width: 40%">
-                <input placeholder="id struk" id="token_struk" type="hidden">
-                <span id="cam-qr-result"></span>
-                <div class="d-flex gap-1">
-                    <button  data-bs-toggle="modal" id="open-camera" data-bs-target="#exampleModal" class="btn btn-light">Kilk Untuk Scan Barcode</button>
-                    <button style="display: none" id="scan-ulang" class="btn btn-light">Scan Ulang</button>
-                </div>
+            <div style="width: 350px;margin-bottom:10px;color:grey">
+                <i >Anda dapat mengirimkan komentar/saran secara Anonymouse ke website sego resek. Silahkan scan barcode yang anda dapatkan dari struk pembelian</i>
+            </div>
+            <div class="d-flex gap-1">
+                <button  data-bs-toggle="modal" id="open-camera" data-bs-target="#exampleModal" class="btn btn-light">Kilk Untuk Scan Barcode</button>
+                <button style="display: none" id="scan-ulang" class="btn btn-light">Scan Ulang</button>
+            </div>
+                <form id="form_komentar" method="POST" action="{{Route('post_komentar')}}">
+                @csrf
+                <input name="token_komentar" id="token_komentar" type="hidden">
                 <span id="info"></span>
                 <br>
-                <textarea placeholder="masukkan komentar anda" name="" class="form-control" id="" cols="30" rows="5"></textarea>
-        </div>
+                <textarea placeholder="masukkan komentar anda" name="isi_komen" class="form-control" id="" cols="30" rows="5"></textarea>
+                <br>
+                <button type="submit" class="btn btn-light">Kirim</button>
+                </form>
+            </div>
         <div>
 
         </div>
@@ -105,13 +111,13 @@ const camQrResult = document.getElementById('cam-qr-result');
 const btnOpenCamera = document.getElementById('open-camera');
 const scanUlang = document.getElementById('scan-ulang');
 const info = document.getElementById('info');
-const token_struk = document.getElementById('token_struk');
+const token_komentar = document.getElementById('token_komentar');
 let qrDetected = false; // Variable to track if QR code is detected
 
 function setResult(label, result) {
     console.log(result.data);
     label.textContent = result.data;
-    token_struk.value = result.data;
+    token_komentar.value = result.data;
     label.style.color = 'teal';
     clearTimeout(label.highlightTimeout);
     label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);

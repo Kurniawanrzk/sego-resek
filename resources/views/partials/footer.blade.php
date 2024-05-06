@@ -1,16 +1,16 @@
 <footer style="background-color:#fcf5e1;margin-top:100px;padding-top:50px;" class=" shadow">
     <div class="mt-3">
-    <div class="d-flex justify-content-around">
+    <div class="container-footer">
         <div>
             <h4 class="">Our Store</h4>
-        <div class="d-flex  gap-2">
+        <div class="container-gmaps">
             <div>
-                <div  class="shadow" style="overflow:hidden;resize:none;max-width:100%;width:300px;height:200px;"><div id="embedded-map-display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Sego+Resek+Terusan+Surabaya&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="google-map-code-enabler" href="https://www.bootstrapskins.com/themes" id="authorize-map-data">premium bootstrap themes</a><style>#embedded-map-display img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}</style></div>
+                <div class="shadow gmaps" style="overflow:hidden;resize:none;max-width:100%;width:300px;height:200px;"><div id="embedded-map-display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Sego+Resek+Terusan+Surabaya&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="google-map-code-enabler" href="https://www.bootstrapskins.com/themes" id="authorize-map-data">premium bootstrap themes</a><style>#embedded-map-display img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}</style></div>
                 <p style="color: #4e4a3f">Store 01 Location</p>
 
             </div>
             <div>
-                <div class="shadow" style="overflow:hidden;resize:none;max-width:100%;width:300px;height:200px;"><div id="embedded-map-display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Jl.+Kerto+Pamuji+No.18+Store+01&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="google-map-code-enabler" href="https://www.bootstrapskins.com/themes" id="authorize-map-data">premium bootstrap themes</a><style>#embedded-map-display img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}</style></div>                <p style="color: #4e4a3f">Store 02 Location</p>
+                <div class="shadow gmaps" style="overflow:hidden;resize:none;max-width:100%;width:300px;height:200px;"><div id="embedded-map-display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Jl.+Kerto+Pamuji+No.18+Store+01&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="google-map-code-enabler" href="https://www.bootstrapskins.com/themes" id="authorize-map-data">premium bootstrap themes</a><style>#embedded-map-display img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}</style></div>                <p style="color: #4e4a3f">Store 02 Location</p>
             </div>
         </div>
     </div>

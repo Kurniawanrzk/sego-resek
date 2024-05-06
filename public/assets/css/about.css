@@ -51,7 +51,7 @@ header > nav > ul >li> a {
    height: 80vh;
 }
 
-    
+
 .container-about-a > div {
     display: flex;
     justify-content: center;
@@ -78,31 +78,31 @@ footer {
    .container-about-a {
     padding-top: 50px;
    }
-    
+
 }
 
 @media only screen and (min-width: 600px) {
     .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
-        display: none;    
+        display: none;
         }
-    
+
         .paket-menu, .original-menu, .minuman-menu {
             justify-content: center;
             font-size: 14px;
         }
-    
+
         .paket-menu > div, .original-menu > div, .minuman-menu > div {
             width: 50%;
         }
-    
+
         .logo-sego-resek-container > img {
             width: 300px;
         }
-    
+
         .container-about {
             height: 25vh;
-        } 
-    
+        }
+
         .container-about > div > button > a {
             font-size: 20px;
         }
@@ -110,23 +110,23 @@ footer {
 
 @media only screen and (min-width: 768px) {
         .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
-        display: block;    
+        display: block;
         }
         .paket-menu, .original-menu, .minuman-menu {
             justify-content: center;
             font-size: 14px;
         }
-    
+
         .paket-menu > div, .original-menu > div, .minuman-menu > div {
             width: 50%;
         }
-    
+
         .logo-sego-resek-container > img {
             width: 500px;
         }
-    
+
         .container-about {
             height: 50vh;
-        } 
-    
+        }
+
 }

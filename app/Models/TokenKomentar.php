@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdminBalasKomen extends Model
+class TokenKomentar extends Model
 {
     use HasFactory;
-    protected $table = 'admin_balas_komen';
+    protected $table ="token_komentar";
     protected $fillable = [
-        "admin_usn",
-        "id_balasan_admin",
-        "token_komentar_pengunjung",
-        "id_menu"
+        "token_komentar",
+        "date"
     ];
     public $timestamps = false;
 

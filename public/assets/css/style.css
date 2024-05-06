@@ -31,6 +31,12 @@ main,.container-hero,.container-menu,.container-about {
 }
 
 
+.menu-makanan {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+}
+
 
 .container-hero {
     background-image: url("../img/hero-bg.png");
@@ -79,6 +85,10 @@ main,.container-hero,.container-menu,.container-about {
     border-bottom: 3px solid black;
 }
 
+.container-gmaps {
+    display: flex;
+    gap: 10px;
+}
 .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
     width: 250px;
 }
@@ -132,13 +142,24 @@ footer {
     height: fit-content;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
+.container-footer {
+    display: flex;
+    gap: 140px;
+    justify-content: center;
+}
 
 @media only screen and (max-width: 600px) {
     .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
     display: none;
     }
-
+    .container-gmaps {
+        display: grid;
+        gap: 10px;
+    }
+    .container-footer {
+        display: grid;
+        gap: 10px;
+    }
     .paket-menu, .original-menu, .minuman-menu {
         justify-content: center;
         font-size: 14px;
@@ -159,9 +180,28 @@ footer {
     .container-about > div > button > a {
         font-size: 20px;
     }
+
+    .menu-makanan,.menu-minuman {
+        display: grid;
+        grid-template-columns: auto;
+        justify-content: center;
+    }
 }
 
 @media only screen and (min-width: 600px) {
+    .container-gmaps {
+        display: grid;
+        gap: 10px;
+    }
+    .container-footer {
+        display: grid;
+        gap: 10px;
+    }
+    .menu-makanan,.menu-minuman {
+        display: grid;
+        grid-template-columns: auto;
+        justify-content: center;
+    }
     .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
         display: none;
         }
@@ -189,8 +229,21 @@ footer {
 }
 
 @media only screen and (min-width: 768px) {
+    .container-gmaps {
+        display: flex;
+        gap: 10px;
+    }
+    .container-footer {
+        display: grid;
+        gap: 10px;
+    }
         .nasi-cartoon,.gorengan-cartoon, .esteh-cartoon {
         display: block;
+        }
+        .menu-makanan,.menu-minuman {
+            display: grid;
+            grid-template-columns: auto;
+            justify-content: center;
         }
         .paket-menu, .original-menu, .minuman-menu {
             justify-content: center;
@@ -217,6 +270,16 @@ footer {
 }
 
 @media only screen and (min-width: 992px) {
+    .container-footer {
+        display: flex;
+        gap: 140px;
+        justify-content: center;
+    }
+    .menu-makanan,.menu-minuman {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        justify-content: space-between;
+    }
     .container-about {
         height: 50vh;
     }

@@ -12,7 +12,22 @@
 <body>
 
 @include('partials.header')
-
+@if(\Session::get('error'))
+<div class="alert alert-danger alert-dismissible fade show" style="position:fixed;right:0;bottom:0;z-index:2;" role="alert">
+    <div class="alert-body">
+        {{ \Session::get('error') }}
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if(\Session::get('success'))
+<div class="alert alert-success alert-dismissible fade show" style="position:fixed;right:0;bottom:0;z-index:2;" role="alert">
+    <div class="alert-body">
+        {{ \Session::get('success') }}
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <main>
     @yield('content')
 </main>

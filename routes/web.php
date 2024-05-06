@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
     Route::get('/', [PageController::class, "home"])->name('home');
+    Route::post('/create/komentar', 'PageController@post_komentar')->name('post_komentar');
     Route::get('/about', 'PageController@about')->name('pages.about');
     Route::get('/komentar', 'PageController@komentar')->name('komentar');
     Route::get('/menu/{tipe?}', [PageController::class, "menu"])->name('menu');
@@ -27,6 +28,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::get("menu", [AdminsController::class, "get_all_menu"])->name("get_all_menu");
             Route::get("komen", [AdminsController::class, "get_all_komen"])->name("get_all_komen");
             Route::delete("delete/komen/{id}", [AdminsController::class, 'delete_komen'])->name("delete_komen");
+            Route::delete("delete/balas/{id}", [AdminsController::class, 'delete_balasan'])->name("delete_balasan");
             Route::post("create/admin/komen/post", [AdminsController::class, 'admin_post_komen'])->name("admin_post_komen");
 
         });

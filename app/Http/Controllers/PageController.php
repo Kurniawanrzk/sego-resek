@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{TipeMenu, Menu, Komen, AdminBalasKomen};
+use App\Models\{TipeMenu, Menu, Komen, AdminBalasKomen,TokenKomentar};
+use Illuminate\Support\Facades\{Validator};
 
 use Illuminate\Http\Request;
 
@@ -32,34 +33,32 @@ class PageController extends Controller
 
     public function komentar()
     {
-        $komen = AdminBalasKomen::exists() ? Komen::select('komen.id_komen', 'komen.komen', 'komen.created_at')
-        ->distinct('komen.id_komen')
-        ->leftJoin('admin_balas_komen', 'komen.id_komen', '!=', 'admin_balas_komen.id_komentar_admin')
-        ->whereNotNull('admin_balas_komen.admin_usn')
-        ->get() : Komen::all();
         $with = [
             "menu" => Menu::all() ,
-            "komentar" => $komen
+            "komentar" =>Komen::all()
         ];
         return view("komentar")->with("with", $with);;
     }
 
     public function post_komentar(Request $request) {
         $validator = Validator::make($request->all(), [
-            "is_komen" => "string|required"
+            "isi_komen" => "string|required",
+            "token_komentar" =>"string|required"
         ]);
-
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator);
+        } else if(!(TokenKomentar::where("token_komentar", $request->token_komentar)->exists())) {
+            return redirect()->back()->with("error","Token telah tidak aktif atau token yang dimasukkan salah!");
         }
 
         $newKomen = new Komen;
-        $newKomen->create([
+        $res = $newKomen->create([
+            "token_komentar" => $request->token_komentar,
             "komen" => $request->isi_komen
         ]);
 
         if($res) {
-            return redirect()->back();
+            return redirect()->back()->with("success","Komentar berhasil di tambahkan!");;
         }
     }
 }

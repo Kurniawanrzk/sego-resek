@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Session, Validator,File, Storage};
-use App\Models\{TipeMenu, Menu, Komen, AdminBalasKomen};
+use App\Models\{TipeMenu, Menu, Komen, AdminBalasKomen,Balasan };
 
 class AdminsController extends Controller
 {
@@ -36,17 +36,10 @@ class AdminsController extends Controller
     }
 
     public function admin_dashboard(Request $request) {
-        $komen = AdminBalasKomen::exists() ? Komen::select('komen.id_komen', 'komen.komen', 'komen.created_at')
-        ->distinct('komen.id_komen')
-        ->leftJoin('admin_balas_komen', 'komen.id_komen', '!=', 'admin_balas_komen.id_komentar_admin')
-        ->whereNotNull('admin_balas_komen.admin_usn')
-        ->offset(0)
-        ->limit(6)
-        ->get() : Komen::all();
         $with = [
             "success" => "You are Logged in sucessfully.",
             "menu" => Menu::offset(0)->limit(6)->get(),
-            "komen" =>$komen
+            "komen" =>Komen::offset(0)->limit(6)->get()
         ];
         return view('admin.dashboard')->with("with",$with);
     }
@@ -142,13 +135,8 @@ class AdminsController extends Controller
     }
 
     public function get_all_komen() {
-        $komen = AdminBalasKomen::exists() ? Komen::select('komen.id_komen', 'komen.komen', 'komen.created_at')
-        ->distinct('komen.id_komen')
-        ->leftJoin('admin_balas_komen', 'komen.id_komen', '!=', 'admin_balas_komen.id_komentar_admin')
-        ->whereNotNull('admin_balas_komen.admin_usn')
-        ->get() : Komen::all();
         $with = [
-            "komen" =>$komen,
+            "komen" =>Komen::all(),
             "menu" => Menu::all()
         ];
         return view('admin.komen')->with("with", $with);
@@ -161,23 +149,29 @@ class AdminsController extends Controller
     }
 
     public function admin_post_komen(Request $request) {
-        $newBalasanKomen = new Komen;
+        $newBalasanKomen = new Balasan;
         $res = $newBalasanKomen->create([
-            "komen" => $request->isi_komen,
+            "balasan" => $request->isi_komen,
             "created_at" => date("Y-m-d H:i:s")
         ]);
-
         $newBalasan = new AdminBalasKomen;
         $newBalasan->create([
             "admin_usn" => auth()->guard("admin")->user()->username,
-            "id_komentar_admin" => $res->id_komen,
-            "id_komentar_pengunjung" => $request->id_komentar_pengunjung,
-            "id_menu" => $request->id_menu
+            "id_balasan_admin" => $res->id_balasan,
+            "token_komentar_pengunjung" => $request->token_komentar_pengunjung,
+            "id_menu" => $request->id_menu ? $request->id_menu : NULL
         ]);
 
         if($newBalasan) {
             return back()->with("success". "Berhasil membalas komen");
         }
 
+    }
+
+    public function delete_balasan($id) {
+        $balas = Balasan::destroy($id);
+        if($balas) {
+            return back()->with("success". "Berhasil menghapus balasan");
+        }
     }
 }

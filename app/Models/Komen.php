@@ -9,8 +9,10 @@ class Komen extends Model
 {
     use HasFactory;
     protected $table = "komen";
-    protected $primaryKey = "id_komen";
+    protected $primaryKey = "token_komentar";
+    protected $keyType = 'string';
     protected $fillable = [
+        "token_komentar",
         "komen"
     ];
     public $timestamps = false;

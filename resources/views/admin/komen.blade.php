@@ -23,32 +23,33 @@
                    </div>
                 </div>
                 <div class="col d-flex">
-                    <form action="{{Route("delete_komen", $komen->id_komen)}}" id="delete-form-komen" method="post">
+                    <form action="{{Route("delete_komen", $komen->token_komentar)}}" id="delete-form-komen" method="post">
                         @csrf
                         @method("delete")
                         <button class="btn delete-btn-komen" type="submit"><span style="color:gray">Remove</span></button>
                     </form>
-                    <button type="button" class="btn"  style="color:gray" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                       Balas
-                      </button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <button type="button" class="btn" style="color:gray" data-bs-toggle="modal" data-bs-target="#exampleModal" data-token-komentar="{{ $komen->token_komentar }}">
+                        Balas
+                    </button>
+
+                    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <button type="button" onclick="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body d-grid">
                                 <form action="{{Route("admin_post_komen")}}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="id_komentar_pengunjung" value="{{$komen->id_komen}}">
+                                    <input type="hidden" name="token_komentar_pengunjung" value="{{$komen->token_komentar}}">
                                 <label>Komentar</label>
                               <textarea name="isi_komen" class="form-control" id="" cols="30" rows="10"></textarea>
                               <label>Pembahasan tentang menu</label>
-                              <select class="form-control"  name="" id="">
+                              <select class="form-control"  name="id_menu" id="">
                                 <option value="0">Pembahasan diluar menu</option>
                                 @foreach ($with["menu"] as $item)
-                                    <option value="id_menu">{{$item->nama_menu}}</option>
+                                    <option value="{{$item->id_menu}}">{{$item->nama_menu}}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -62,18 +63,18 @@
                       </div>
                 </div>
              </div>
-             @if (App\Models\AdminBalasKomen::where("id_komentar_pengunjung", $komen->id_komen)->exists())
+             @if (App\Models\AdminBalasKomen::where("token_komentar_pengunjung", $komen->token_komentar)->exists())
              @php
-             $balasan = App\Models\AdminBalasKomen::where("id_komentar_pengunjung", $komen->id_komen)->get()
-             ->map(function($data) {
-                return App\Models\Komen::where("id_komen", $data->id_komentar_admin)->first();
-             });
+             $balasan = App\Models\Balasan::select('balasan.balasan', 'balasan.created_at', 'balasan.id_balasan',"admin_balas_komen.token_komentar_pengunjung")
+            ->join('admin_balas_komen', 'admin_balas_komen.id_balasan_admin', '=', 'balasan.id_balasan')
+            ->where('admin_balas_komen.token_komentar_pengunjung', $komen->token_komentar)
+            ->get();
              @endphp
                 @foreach ( $balasan as $balasan)
                 <div class="ms-4 col shadow-sm border mt-2 p-2" style="background-color: rgb(240, 240, 240)">
                     <div class="d-flex align-items-center justify-content-between">
                        <div class="col-10">
-                          <p>{{$balasan->komen}}</p>
+                          <p>{{$balasan->balasan}} </p>
                        </div>
                        <div class="col-1">
 
@@ -82,7 +83,7 @@
                     </div>
 
                     <div class="col">
-                        <form action="{{Route("delete_komen", $balasan->id_komen)}}" id="delete-form-komen" method="post">
+                        <form action="{{Route("delete_balasan", $balasan->id_balasan)}}" id="delete-form-komen" method="post">
                             @csrf
                             @method("delete")
                             <button class="btn delete-btn-komen" type="submit"><span style="color:gray">Remove</span></button>
@@ -95,6 +96,14 @@
              @endif
              @endforeach
               <script>
+                 document.querySelectorAll('.btn[data-bs-target="#exampleModal"]').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const tokenKomentar = this.getAttribute('data-token-komentar');
+                        const modalForm = document.getElementById('exampleModal');
+                        const tokenInput = modalForm.querySelector('input[name="token_komentar_pengunjung"]');
+                        tokenInput.value = tokenKomentar;
+                    });
+                });
                 // Assign event listeners to each delete button
                 const deleteButtonsKomen = document.querySelectorAll(".delete-btn-komen");
 

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row recent-menu">
-        <div class="col">{{ auth()->user()}}
+        <div class="col">
             <h4>Menu</h4>
             <a href="{{ Route("admin_add_menu") }}"><button class="btn btn-primary">Tambah Baru +</button></a>
             <a href="{{Route("get_all_menu")}}"><button class="btn btn-primary">Lihat Semua Menu</button></a>
@@ -79,7 +79,7 @@
                      </div>
                   </div>
                   <div class="col">
-                      <form action="{{Route("delete_komen", $komen->id_komen)}}" id="delete-form-komen" method="post">
+                      <form action="{{Route("delete_komen", $komen->token_komentar)}}" id="delete-form-komen" method="post">
                           @csrf
                           @method("delete")
                           <button class="btn delete-btn-komen" type="submit"><span style="color:gray">Remove</span></button>
