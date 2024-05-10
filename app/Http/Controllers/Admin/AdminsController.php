@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Session, Validator,File, Storage};
-use App\Models\{TipeMenu, Menu, Komen, AdminBalasKomen,Balasan };
+use App\Models\{TipeMenu, Menu, Komen, AdminBalasKomen,Balasan,TokenKomentar };
 
 class AdminsController extends Controller
 {
@@ -172,6 +172,22 @@ class AdminsController extends Controller
         $balas = Balasan::destroy($id);
         if($balas) {
             return back()->with("success". "Berhasil menghapus balasan");
+        }
+    }
+
+    public function kasir_page() {
+        $with = [
+            "data_menu" => Menu::all()
+        ];
+        return view("admin.kasir")->with('with', $with);
+    }
+
+    public function buat_token_komentar(Request $request) {
+        $token = new TokenKomentar;
+        if($token->create([
+            "token_komentar" => $request->token_komentar
+        ])) {
+            return redirect()->back()->with("success","Berhasil mengenerate token");;
         }
     }
 }

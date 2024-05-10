@@ -37,7 +37,7 @@
                 <br>
                 <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">Harga menu</span>
-                    <input type="text" class="form-control" name="harga_menu" value="@if($with['method'] == "post") {{old('harga_menu')}} @else{{$with["data_menu"]->harga_menu}} @endif" aria-label="harga_menu" aria-describedby="addon-wrapping">
+                    <input type="number" class="form-control" name="harga_menu" value="@if($with['method'] == "post") {{old('harga_menu')}} @else{{$with["data_menu"]->harga_menu}} @endif" aria-label="harga_menu" aria-describedby="addon-wrapping">
                 </div>
                 <br>
                 <div class="input-group flex-nowrap">
