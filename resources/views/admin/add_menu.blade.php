@@ -20,9 +20,9 @@
                     <span class="input-group-text" id="addon-wrapping">File Foto</span>
                     <input onchange="previewImage(this);" type="file" aria-label="foto" class="form-control" name="foto" autofocus aria-describedby="addon-wrapping">
                     @if ($with['method'] == "post")
-                        <img id="img-preview" width="200px" src="{{ old('foto') }}" />
+                        <img id="img-preview" width="200px" src="{{old('foto')}}" />
                     @else
-                        <img id="img-preview" src="{{ $with['data_menu']->file_foto }}" width="200px" />
+                        <img id="img-preview" src="{{url("/")."/uploads/menu_foto/".$with['data_menu']->file_foto}}" width="200px" />
                     @endif
                 </div>
                 <script>

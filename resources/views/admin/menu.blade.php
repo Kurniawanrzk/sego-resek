@@ -10,7 +10,7 @@
                 @foreach ( $with['data_menu'] as $menu)
                 <div class="col-lg-4 mb-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{$menu->file_foto}}" class="card-img-top" alt="...">
+                        <img src="{{url("/")."/uploads/menu_foto/".$menu->file_foto}}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{$menu->nama_menu}}</h5>
                             <h6 class="">Rp.{{$menu->harga_menu}}</h6>

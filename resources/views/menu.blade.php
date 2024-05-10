@@ -31,7 +31,7 @@
                 @foreach ( $with["menu"] as $makanan)
                 <div class="col-lg-4 mb-4">
                     <div class="card p-2" style="width: 18rem;">
-                        <img src="{{ $makanan->file_foto }}" style="border:20px solid #f0e8d4ac;border-radius:10px;" class="card-img-top" alt="...">
+                        <img src="{{url("/")."/uploads/menu_foto/".$makanan->file_foto}}" style="border:20px solid #f0e8d4ac;border-radius:10px;" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title" style="background:#f0e8d4ac;width:fit-content;padding:10px;border-radius:10px;color:#ac9b6d">{{$makanan->nama_menu}}<br/>Rp.{{$makanan->harga_menu}}</h5>
                             <p style="background:#f0e8d4ac;width:fit-content;padding:10px;border-radius:10px;color:#ac9b6d" class="card-text">{{$makanan->deskripsi}}</p>

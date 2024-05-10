@@ -78,7 +78,7 @@ class AdminsController extends Controller
                 $img->move(public_path("uploads/menu_foto/"), $nama_foto);
                 $menu_baru = new Menu;
                 unset($request->file_foto);
-                $request->merge(["file_foto" => asset("uploads/menu_foto/$nama_foto"), "tipe_menu" => $request->tipe_menu]);
+                $request->merge(["file_foto" =>$nama_foto, "tipe_menu" => $request->tipe_menu]);
                 $menu_baru->fill($request->all());
                 $menu_baru->save();
                 return redirect()->route("admin_dashboard");
@@ -115,7 +115,7 @@ class AdminsController extends Controller
             $img = $request->file("foto");
             $nama_foto = $request->nama_menu . "-" . $request->tipe_menu . "." . $img->getClientOriginalExtension();
             $img->move(public_path("uploads/menu_foto/"), $nama_foto);
-            $request->merge(["file_foto" => asset("uploads/menu_foto/$nama_foto"), "tipe_menu" => $request->tipe_menu]);
+            $request->merge(["file_foto" =>$nama_foto, "tipe_menu" => $request->tipe_menu]);
             unset($request->file_foto);
         } else {
             $request->merge(["tipe_menu" => $request->tipe_menu]);
